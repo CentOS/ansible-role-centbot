@@ -1,1 +1,19 @@
 # Defaults variables for role centbot
+
+# unprivileged users to create to run supybot
+centbot_users:
+  - centbot
+  - centguard
+
+# Which supybot pkgs to install
+centbot_pkgs:
+  - supybot-meetbot
+  - supybot-limnoria
+  - SOAPpy
+  - python-beautifulsoup4
+  - pytz
+
+# httpd settings
+centbot_httpd_hostname: centbot.centos.org
+centbot_httpd_dir: /var/www/minutes
+centbot_httpd_tls: True

@@ -1,1 +1,77 @@
 # Defaults tasks for role centbot
+
+- name: Supybot users for local instance
+  user:
+    name: "{{ item }}"
+    state: present
+    shell: /bin/bash
+    comment: "{{ item }} IRC bot user"
+  with_items:
+    - centbot
+    - centguard
+  tags:
+    - users
+
+- name: Ensuring we have correct pkgs installed
+  yum:
+    name: "{{ centbot_pkgs }}"
+    state: latest
+
+- name: Ensuring bot would try to reconnect
+  cron:
+    name: centbot-wrapper
+    job: "/home/centbot/bin/centbot-wrapper"
+    user: centbot
+    minute: "*/5"
+
+- name: Ensuring bot will connect at startup
+  cron:
+    name: centbot-wrapper at boot
+    job: "/home/centbot/bin/centbot-wrapper"
+    user: centbot
+    special_time: reboot
+
+- name: Configuring httpd
+  import_role:
+    name: httpd
+  vars:
+    httpd_tls: "{{ centbot_httpd_tls }}"
+
+- name: Configuring httpd vhost
+  template:
+    src: 02_centbot.conf.j2
+    dest: /etc/httpd/conf.d/02_centbot.conf
+  notify:
+    - restart_httpd
+
+- name: Configuring https
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/httpd/conf.d/{{ item }}"
+  notify:
+    - restart_httpd
+  with_items:
+    - ssl-centbot.conf
+  when: centbot_httpd_tls  
+   
+- import_role:
+    name: httpd
+    tasks_from: pki-tls
+  vars:
+    pki_hostname: "{{ centbot_httpd_hostname }}"
+  notify:
+    - restart_httpd
+  tags:
+    - tls
+  when: centbot_httpd_tls
+
+- name: Ensuring backup user and jobs
+  include_role:
+    name: centos-backup
+    tasks_from: client
+  vars:
+    - centos_role: centbot
+    - role_backup_folders:
+        - "/home/centbot"
+        - "/home/centguard"
+        - "{{ centbot_httpd_dir }}"
