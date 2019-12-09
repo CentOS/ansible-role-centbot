@@ -23,6 +23,17 @@
     job: "/home/centbot/bin/centbot-wrapper"
     user: centbot
     minute: "*/5"
+  tags:
+   - cron
+
+- name: Ensuring guard would try to reconnect
+  cron:
+    name: centguard-wrapper
+    job: "/home/centbot/bin/centguard-wrapper"
+    user: centguard
+    minute: "*/5"
+  tags:
+   - cron
 
 - name: Ensuring bot will connect at startup
   cron:
@@ -30,6 +41,7 @@
     job: "/home/centbot/bin/centbot-wrapper"
     user: centbot
     special_time: reboot
+    state: absent
 
 - name: Configuring httpd
   import_role:
