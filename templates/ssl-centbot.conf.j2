@@ -2,8 +2,8 @@
  ServerAdmin webmaster@centos.org
  ServerName {{ centbot_httpd_hostname }}
  DocumentRoot /var/www/html
- ReadmeName /FOOTER.html
- HeaderName /HEADER_AD.html
+ ReadmeName /centos-design/footer.html
+ HeaderName /centos-design/header-centos-meetings-minutes.html
  IndexIgnore .??* *~ *# HEADER* README* RCS CVS *,v *,t FOOTER.html
 
  Header always set Strict-Transport-Security "max-age=31536000"                                                   
@@ -19,7 +19,6 @@
 Alias "/minutes/" "{{ centbot_httpd_dir }}/"
 
 <Directory "{{ centbot_httpd_dir }}/">
-HeaderName /header/header.html
 IndexIgnore .??* *~ *# HEADER* README* RCS CVS *,v *,t FOOTER.html
  AllowOverride Indexes
  Options Indexes FollowSymLinks
@@ -28,7 +27,8 @@ IndexIgnore .??* *~ *# HEADER* README* RCS CVS *,v *,t FOOTER.html
    Allow from all
  </IfVersion>
  <IfVersion >= 2.4>
-    IndexOptions FancyIndexing VersionSort NameWidth=* HTMLTable Charset=UTF-8
+    IndexOptions NameWidth=* +SuppressHTMLPreamble
+    IndexStyleSheet "/centos-design/css/centos-listindex.css"
     Require all granted
  </IfVersion>
 </Directory>

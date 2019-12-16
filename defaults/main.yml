@@ -17,3 +17,7 @@ centbot_pkgs:
 centbot_httpd_hostname: centbot.centos.org
 centbot_httpd_dir: /var/www/minutes
 centbot_httpd_tls: True
+centbot_httpd_header: |
+  <div class="alert alert-success" role="alert">
+  This directory tree contains the archived CentOS meetings minutes, ordered by year/month.<br>
+  </div>

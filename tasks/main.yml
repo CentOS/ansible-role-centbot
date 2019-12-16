@@ -48,6 +48,8 @@
     name: httpd
   vars:
     httpd_tls: "{{ centbot_httpd_tls }}"
+    httpd_html_autoindex_title: "CentOS Meetings minutes"
+    httpd_html_autoindex_content: "{{ centbot_httpd_header }}"
 
 - name: Configuring httpd vhost
   template:
