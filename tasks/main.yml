@@ -16,6 +16,15 @@
   yum:
     name: "{{ centbot_pkgs }}"
     state: latest
+  
+- name: Patching meetbot for centos url support
+  patch:
+    src: "{{ item }}"
+    basedir: /
+  with_items:
+    - meeting.py.patch
+  tags:
+    - patch
 
 - name: Ensuring bot would try to reconnect
   cron:
@@ -29,7 +38,7 @@
 - name: Ensuring guard would try to reconnect
   cron:
     name: centguard-wrapper
-    job: "/home/centbot/bin/centguard-wrapper"
+    job: "/home/centguard/bin/centguard-wrapper"
     user: centguard
     minute: "*/5"
   tags:

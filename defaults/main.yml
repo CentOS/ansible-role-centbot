@@ -12,6 +12,7 @@ centbot_pkgs:
   - SOAPpy
   - python-beautifulsoup4
   - pytz
+  - patch
 
 # httpd settings
 centbot_httpd_hostname: centbot.centos.org

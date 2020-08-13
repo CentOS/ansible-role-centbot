@@ -1,0 +1,26 @@
+--- /usr/lib/python2.7/site-packages/supybot/plugins/MeetBot/meeting.py.orig	2020-08-13 07:42:46.637203888 +0000
++++ /usr/lib/python2.7/site-packages/supybot/plugins/MeetBot/meeting.py	2020-08-13 07:42:51.719328961 +0000
+@@ -50,15 +50,19 @@
+     #
+     # Where to store files on disk
+     # Example:   logFileDir = '/home/richard/meetbot/'
+-    logFileDir = '.'
++# JRD    logFileDir = '.'
++    logFileDir = '/var/www/minutes'
+     # The links to the logfiles are given this prefix
+     # Example:   logUrlPrefix = 'http://rkd.zgib.net/meetbot/'
+-    logUrlPrefix = ''
++# JRD    logUrlPrefix = ''
++    logUrlPrefix = 'https://www.centos.org/minutes/'
+     # Give the pattern to save files into here.  Use %(channel)s for
+     # channel.  This will be sent through strftime for substituting it
+     # times, howover, for strftime codes you must use doubled percent
+     # signs (%%).  This will be joined with the directories above.
+-    filenamePattern = '%(channel)s/%%Y/%(channel)s.%%F-%%H.%%M'
++# JRD    filenamePattern = '%(channel)s/%%Y/%(channel)s.%%F-%%H.%%M'
++    filenamePattern = '%%Y/%%B/%(channel)s.%%F-%%H.%%M'
++# https://www.centos.org/minutes/2017/september/centos-devel.2017-09-05-14.04.html
+     # Where to say to go for more information about MeetBot
+     MeetBotInfoURL = 'http://wiki.debian.org/MeetBot'
+     # This is used with the #restrict command to remove permissions from files.
+
