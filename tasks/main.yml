@@ -64,6 +64,7 @@
   template:
     src: 02_centbot.conf.j2
     dest: /etc/httpd/conf.d/02_centbot.conf
+    mode: 0644
   notify:
     - restart_httpd
 
@@ -71,6 +72,7 @@
   template:
     src: "{{ item }}.j2"
     dest: "/etc/httpd/conf.d/{{ item }}"
+    mode: 0644
   notify:
     - restart_httpd
   with_items:
