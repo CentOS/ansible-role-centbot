@@ -5,6 +5,9 @@ centbot_users:
   - centbot
   - centguard
 
+# where to send cron results
+centbot_email_rcpt: me@centos.org
+
 # Which supybot pkgs to install
 centbot_pkgs:
   - supybot-meetbot
@@ -23,3 +26,5 @@ centbot_httpd_header: |
   <div class="alert alert-success" role="alert">
   This directory tree contains the archived CentOS meetings minutes, ordered by year/month.<br>
   </div>
+
+

@@ -12,6 +12,16 @@
   tags:
     - users
 
+- name: Configuring mail recipients
+  copy:
+    content: "{{ centbot_email_rcpt }}"
+    dest: "/home/{{ item }}/.forward"
+  with_items:
+    - centbot
+    - centguard
+
+  tags:
+    - users
 - name: Ensuring we have correct pkgs installed
   yum:
     name: "{{ centbot_pkgs }}"
@@ -89,6 +99,12 @@
   tags:
     - tls
   when: centbot_httpd_tls
+
+- include_role:
+    name: postfix
+    tasks_from: relay_to
+  vars:
+    postfix_relay_to: True
 
 - name: Ensuring backup user and jobs
   include_role:
